@@ -2,6 +2,7 @@
 
 Entry.Bitbrick = {
     SENSOR_MAP: {
+        //워리님 확인요망
         1: 'light',
         2: 'IR',
         3: 'touch',
