@@ -824,6 +824,7 @@ Entry.Bitbrick.setLanguage = function() {
                 BITBRICK_UserInput: 'UserInput',
                 BITBRICK_dc_direction_ccw: 'CCW',
                 BITBRICK_dc_direction_cw: 'CW',
+                
             },
         },
     };
