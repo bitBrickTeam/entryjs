@@ -2,7 +2,7 @@
 
 Entry.Bitbrick = {
     SENSOR_MAP: {
-        //워리님 확인요망
+        //센서추가시 넘버는 워리님께 문의 
         1: 'light',
         2: 'IR',
         3: 'touch',
@@ -27,6 +27,8 @@ Entry.Bitbrick = {
         LEDB: 16,
     },
     sensorList: function() {
+
+        //센서 목록 불러오는 메소드
         var list = [];
         var portData = Entry.hw.portData;
         for (var i = 1; i < 5; i++) {
@@ -40,6 +42,8 @@ Entry.Bitbrick = {
         return list;
     },
     touchList: function() {
+
+        //터치버튼목록 
         var list = [];
         var portData = Entry.hw.portData;
         for (var i = 1; i < 5; i++) {
@@ -50,6 +54,7 @@ Entry.Bitbrick = {
         return list;
     },
     servoList: function() {
+        //서보모터 목록
         var list = [];
         var portData = Entry.hw.portData;
         for (var i = 5; i < 9; i++) {
@@ -60,6 +65,7 @@ Entry.Bitbrick = {
         return list;
     },
     dcList: function() {
+        //dc모터 목록
         var list = [];
         var portData = Entry.hw.portData;
         for (var i = 5; i < 9; i++) {
@@ -88,6 +94,7 @@ Entry.Bitbrick = {
     dcMinValue: -100,
     monitorTemplate: {
         keys: ['value'],
+        //모니터링 탬플릿 이미지 이부분도 수정가능.
         imgPath: 'hw/bitbrick.png',
         width: 400,
         height: 400,
@@ -231,6 +238,7 @@ Entry.Bitbrick.getBlocks = function() {
             class: 'condition',
             isNotFor: ['bitbrick'],
             func: function(sprite, script) {
+                //터치가 눌렸는지 확인파트
                 return Entry.hw.portData[script.getStringField('PORT')].value === 0;
             },
             syntax: { js: [], py: ['Bitbrick.is_touch_pressed(%1)'] },
@@ -314,6 +322,7 @@ Entry.Bitbrick.getBlocks = function() {
             class: 'condition',
             isNotFor: ['bitbrick'],
             func: function(sprite, script) {
+                //LED 컬러값 세팅
                 var red = script.getNumberValue('rValue'),
                     green = script.getNumberValue('gValue'),
                     blue = script.getNumberValue('bValue'),
@@ -355,6 +364,7 @@ Entry.Bitbrick.getBlocks = function() {
             class: 'condition',
             isNotFor: ['bitbrick'],
             func: function(sprite, script) {
+                //컬러 피커값 계산 파트
                 var port = script.getStringField('VALUE');
                 Entry.hw.sendQueue['LEDR'] = parseInt(port.substr(1, 2), 16);
                 Entry.hw.sendQueue['LEDG'] = parseInt(port.substr(3, 2), 16);
@@ -468,6 +478,8 @@ Entry.Bitbrick.getBlocks = function() {
             syntax: { js: [], py: ['Bitbrick.buzzer(%1)'] },
         },
         bitbrick_turn_off_all_motors: {
+            //포토토콜상 DC모터의 정지는 129로 지정 되어있고 SERVO모터는 0으로 설정되어있음
+
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -500,6 +512,9 @@ Entry.Bitbrick.getBlocks = function() {
             syntax: { js: [], py: ['Bitbrick.turn_off_all_motors()'] },
         },
         bitbrick_dc_speed: {
+
+            //DC모터는 -100 부터 +100까지 값을 가질수 있음
+            //그렇기 때문에 정지 기준값 128을 기준으로 28과 228을 가질수 있음
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -825,7 +840,6 @@ Entry.Bitbrick.setLanguage = function() {
                 BITBRICK_UserInput: 'UserInput',
                 BITBRICK_dc_direction_ccw: 'CCW',
                 BITBRICK_dc_direction_cw: 'CW',
-                
             },
         },
     };
